@@ -43,17 +43,33 @@ def add_book():
     return render_template("add_book.html")
 
 
+from bson import ObjectId
+
+
 @app.route("/books/edit/<string:book_id>", methods=["GET", "POST"])
 def edit_book(book_id):
     """Edit an existing book route."""
-    book = collection.find_one({"_id": book_id})
+    # Convert the book_id string to ObjectId
+    book_oid = ObjectId(book_id)
+    # Retrieve the book from the database
+    book = collection.find_one({"_id": book_oid})
+    if book is None:
+        flash("Book not found!", "error")
+        return redirect(url_for("list_books"))
+
     if request.method == "POST":
         title = request.form["title"]
         author = request.form["author"]
         year = request.form["year"]
-        if title and author and year:
-            update_book = {"title": title, "author": author, "year": int(year)}
-            collection.update_one({"_id": book_id}, {"$set": update_book})
+        try:
+            year = int(year)
+        except ValueError:
+            flash("Year must be a valid integer!", "error")
+            return render_template("edit_book.html", book=book)
+
+        if title and author:
+            update_book = {"title": title, "author": author, "year": year}
+            collection.update_one({"_id": book_oid}, {"$set": update_book})
             flash("Book updated successfully!", "success")
             return redirect(url_for("list_books"))
         else:
@@ -65,8 +81,13 @@ def edit_book(book_id):
 def delete_book(book_id):
     """Delete a book route."""
     if request.method == "POST":
-        collection.delete_one({"_id": book_id})
-        flash("Book deleted successfully!", "success")
+        try:
+            # Convert the book_id string to ObjectId
+            book_oid = ObjectId(book_id)
+            collection.delete_one({"_id": book_oid})
+            flash("Book deleted successfully!", "success")
+        except Exception as e:
+            flash(f"An error occurred while deleting the book: {e}", "error")
         return redirect(url_for("list_books"))
     return render_template("delete_book.html", book_id=book_id)
 
