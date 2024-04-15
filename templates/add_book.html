@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Add Book</h1>
+            <p>
+                <a href="{{ url_for('home')}}">Home</a> |
+                <a href="{{ url_for('list_books')}}">All Books</a>
+            </p>
+        </header>
+        <main>
+            <h2>Add a New Book</h2>
+            <form action="{{ url_for('add_book') }}" method="POST">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title"><br>
+                <label for="author">Author:</label><br>
+                <input type="text" id="author" name="author"><br>
+                <label for="year">Year:</label><br>
+                <input type="number" id="year" name="year"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </main>
+        <footer>
+            <p>
+                The source code for this example app is
+                <a href="https://github.com/nyu-database-design/flask-mongodb-web-app">available on Github</a>.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
