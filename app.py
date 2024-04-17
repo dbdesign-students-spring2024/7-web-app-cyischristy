@@ -1,16 +1,16 @@
 import os
-import sys
-import subprocess
-import datetime
 import secrets
-import pymongo
-
-from flask import session
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
-from bson import ObjectId
-from pymongo.errors import ConnectionFailure
 
+app = Flask(__name__)
+
+# Connect to MongoDB
+client = MongoClient(os.getenv("MONGO_URI"))
+db = client["book"]  # Use the "book" database
+collection = db["allbook"]  # Use the "allbook" collection
+
+# instantiate the app using sentry for debugging
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
