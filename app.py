@@ -13,21 +13,6 @@ from werkzeug.utils import secure_filename
 from pymongo.errors import ConnectionFailure
 
 app = Flask(__name__)
-
-try:
-    cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
-    db = cxn[os.getenv("MONGO_DBNAME")]  # store a reference to the selected database
-
-    # verify the connection works by pinging the database
-    cxn.admin.command("ping")  # The ping command is cheap and does not require auth.
-    print(" * Connected to MongoDB!")  # if we get here, the connection worked!
-except ConnectionFailure as e:
-    # catch any database errors
-    # the ping command failed, so the connection is not available.
-    print(" * MongoDB connection error:", e)  # debugg
-    sys.exit(1)  # this is a catastrophic error, so no reason to continue to live
-
-
 app.secret_key = secrets.token_hex(16)
 
 # Connect to MongoDB
