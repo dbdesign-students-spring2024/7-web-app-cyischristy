@@ -9,7 +9,6 @@ from flask import session
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 from bson import ObjectId
-from werkzeug.utils import secure_filename
 from pymongo.errors import ConnectionFailure
 
 app = Flask(__name__)
