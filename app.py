@@ -2,6 +2,7 @@ import os
 import secrets
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
+from bson import ObjectId
 
 app = Flask(__name__)
 
@@ -41,9 +42,6 @@ def add_book():
         else:
             flash("Please fill in all fields!", "error")
     return render_template("add_book.html")
-
-
-from bson import ObjectId
 
 
 @app.route("/books/edit/<string:book_id>", methods=["GET", "POST"])
