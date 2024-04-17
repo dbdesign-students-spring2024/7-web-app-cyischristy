@@ -1,17 +1,24 @@
 import os
+import sys
+import subprocess
+import datetime
 import secrets
+import pymongo
+
+from flask_bcrypt import Bcrypt
+from flask import session
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 from bson import ObjectId
+from werkzeug.utils import secure_filename
+from pymongo.errors import ConnectionFailure
+from dotenv import load_dotenv
+
+
+load_dotenv(override=True)
 
 app = Flask(__name__)
-
-app.secret_key = secrets.token_hex(16)
-
-# Connect to MongoDB
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client["book"]  # Use the "book" database
-collection = db["allbook"]  # Use the "allbook" collection
+bcrypt = Bcrypt(app)
 
 try:
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
@@ -23,9 +30,17 @@ try:
 except ConnectionFailure as e:
     # catch any database errors
     # the ping command failed, so the connection is not available.
-    print(" * MongoDB connection error:", e)  # debug
-    sentry_sdk.capture_exception(e)  # send the error to sentry.io. delete if not using
+    print(" * MongoDB connection error:", e)  # debugg
     sys.exit(1)  # this is a catastrophic error, so no reason to continue to live
+
+
+app.secret_key = secrets.token_hex(16)
+
+# Connect to MongoDB
+client = MongoClient(os.getenv("MONGO_URI"))
+db = client["book"]  # Use the "book" database
+collection = db["allbook"]  # Use the "allbook" collection
+
 
 @app.route("/")
 def home():
