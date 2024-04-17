@@ -13,6 +13,19 @@ client = MongoClient(os.getenv("MONGO_URI"))
 db = client["book"]  # Use the "book" database
 collection = db["allbook"]  # Use the "allbook" collection
 
+try:
+    cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
+    db = cxn[os.getenv("MONGO_DBNAME")]  # store a reference to the selected database
+
+    # verify the connection works by pinging the database
+    cxn.admin.command("ping")  # The ping command is cheap and does not require auth.
+    print(" * Connected to MongoDB!")  # if we get here, the connection worked!
+except ConnectionFailure as e:
+    # catch any database errors
+    # the ping command failed, so the connection is not available.
+    print(" * MongoDB connection error:", e)  # debug
+    sentry_sdk.capture_exception(e)  # send the error to sentry.io. delete if not using
+    sys.exit(1)  # this is a catastrophic error, so no reason to continue to live
 
 @app.route("/")
 def home():
