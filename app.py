@@ -5,20 +5,14 @@ import datetime
 import secrets
 import pymongo
 
-from flask_bcrypt import Bcrypt
 from flask import session
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 from bson import ObjectId
 from werkzeug.utils import secure_filename
 from pymongo.errors import ConnectionFailure
-from dotenv import load_dotenv
-
-
-load_dotenv(override=True)
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
 
 try:
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
