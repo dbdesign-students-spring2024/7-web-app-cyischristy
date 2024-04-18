@@ -1,14 +1,13 @@
 import os
 import secrets
+import pymongo
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 
-app = Flask(__name__)
+from bson.objectid import ObjectId
+from dotenv import load_dotenv
 
-# Connect to MongoDB
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client["book"]  # Use the "book" database
-collection = db["allbook"]  # Use the "allbook" collection
+load_dotenv(override=True)
 
 # instantiate the app using sentry for debugging
 app = Flask(__name__)
@@ -18,7 +17,6 @@ app.secret_key = secrets.token_hex(16)
 client = MongoClient(os.getenv("MONGO_URI"))
 db = client["book"]  # Use the "book" database
 collection = db["allbook"]  # Use the "allbook" collection
-
 
 @app.route("/")
 def home():
