@@ -6,7 +6,7 @@
 
 ## APP description:
 
-+ This is a small book list app that help user record all the books they have read.
++ This is a small book list app that help user to record all the books they have read and made modification to the list easily.
 
 + In the **Home Page**, there are three buttoms: **Home**, **All Books**, and **Add Book**.
 
@@ -19,3 +19,11 @@
 + When you click **Delete**, you will get into **Delete Book Page** where you can delete the selected book from the book list. In the page, when you click **Delete**, this selected book will be delete from the book list and you will get back to the **All Book Page**, but when you click **Cancel**, you will get back to the **All Book Page** without making any modification to the book list.
 
 + When you click **Edit**, you will get into **Edit Book Details Page** where you can edit the selected book's details: **Title**, **Author**, and **Year**, and then you can click **Submit** buttom to go back to the **All Book Page**.
+
+## Link:
+
++ NYU link: https://i6.cims.nyu.edu/~yc4242/7-web-app-cyischristy/flask.cgi
++ I followed all the steps inside the instruction but the website still can't open successfully, but it can run on my local machine successfully.
++ Local machine website link: http://127.0.0.1:5000
+
+
