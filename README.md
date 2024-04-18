@@ -23,7 +23,27 @@
 ## Link:
 
 + NYU link: https://i6.cims.nyu.edu/~yc4242/7-web-app-cyischristy/flask.cgi
-+ I followed all the steps inside the instruction but the website still can't open successfully, but it can run on my local machine successfully.
+
+(I followed all the steps inside the instruction for more than twenty times, changed lots of methods and parameters, and went to Sejal's office hour and get helpped for more than two hours, but the website still can't open successfully, it can run on my local machine successfully which means the code should be correct, so I really don't know where is the problem.)
+
+![Evidence for following instruction](image.png)
+
+![.env file I create followed the instruction](image-1.png)
+
 + Local machine website link: http://127.0.0.1:5000
+
+Evidence for openning the website successfully on my local machine:
+
+![Home book page](image-11.png)
+
+![All book page](image-5.png)
+
+![Edit book page](image-7.png)
+
+![Book edited successfully and back to all book page](image-8.png)
+
+![Add book page](image-9.png)
+
+![Book added successfully and back to all book page](image-10.png)
 
 
